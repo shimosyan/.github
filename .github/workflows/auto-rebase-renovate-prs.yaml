@@ -1,0 +1,30 @@
+name: Auto Rebase Renovate PRs
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - .github/workflows/**
+      - renovate.json5
+      - default.json
+  workflow_dispatch:
+    inputs:
+      pr_numbers:
+        description: 'Specific PR numbers to rebase (comma-separated, optional)'
+        required: false
+        type: string
+
+permissions:
+  id-token: write
+  contents: read
+  pull-requests: write
+
+jobs:
+  rebase:
+    uses: ./.github/workflows/wc-auto-rebase-renovate-prs.yaml
+    with:
+      pr_numbers: ${{ inputs.pr_numbers }}
+    secrets:
+      CLIENT_ID: ${{ secrets.CLIENT_ID }}
+      PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
