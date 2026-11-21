@@ -17,7 +17,7 @@
 | `wc-schedule-detect-drifts.yaml` | Terraform Drift の検知・Issue 更新 | 定期実行（毎時）・手動実行 |
 | `wc-sync-drift-issue-description.yaml` | Drift Issue 本文の同期 | Issue コメント作成時 |
 
-## Usage
+### Usage
 
 呼び出し側のリポジトリでは、以下のようにコミット SHA またはバージョンタグを指定して参照します。
 
@@ -39,8 +39,36 @@ jobs:
 - `CLIENT_ID`: GitHub App の Client ID
 - `PRIVATE_KEY`: GitHub App の Private Key
 
+> **Note:** `wc-auto-rebase-renovate-prs.yaml` を利用するリポジトリでは、あらかじめ `rebase` ラベルを作成しておく必要があります。
+
+## Renovate Preset
+
+リポジトリルートの `default.json` で、各リポジトリ共通の Renovate プリセットを提供しています。
+
+### 主な設定内容
+
+- **ベースプリセット**: `config:recommended` / `helpers:pinGitHubActionDigests` / `aquaproj/aqua-renovate-config` / `suzuki-shunsuke/renovate-config:yaml-language-server`
+- **自動マージ**: `minor`・`patch`・`pin`・`digest` の更新および GitHub Actions のダイジェスト固定更新を自動マージ（`platformAutomerge: true`）
+- **安定化待機期間**: リリース後 3 日間は PR を作成しない（`minimumReleaseAge: "3 days"`）
+- **PR 作成数制限・その他**: 1 時間あたり最大 2 件 / 同時オープン最大 10 件、タイムゾーン `Asia/Tokyo`、Dependency Dashboard 有効化
+
+### 継承方法
+
+各リポジトリの `renovate.json5` で以下のように継承します。
+
+```json5
+{
+  '$schema': 'https://docs.renovatebot.com/renovate-schema.json',
+  extends: [
+    'github>shimosyan/.github',
+  ],
+}
+```
+
+リポジトリ固有のルールや `customManagers` が必要な場合は、`extends` の後ろに追記して上書きします。
+
 ## License
 
 Copyright (c) 2026 shimosyan  
 Released under the MIT license  
-<https://github.com/shimosyan/.github/blob/main/LICENSE>
+[https://github.com/shimosyan/.github/blob/main/LICENSE](https://github.com/shimosyan/.github/blob/main/LICENSE)
