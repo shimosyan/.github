@@ -1,0 +1,46 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "description": "Shared Renovate preset for shimosyan repositories",
+  "extends": [
+    "config:recommended",
+    "helpers:pinGitHubActionDigests",
+    "github>aquaproj/aqua-renovate-config#2.15.0",
+    "github>suzuki-shunsuke/renovate-config:yaml-language-server#4.0.0"
+  ],
+  "labels": [
+    "renovate"
+  ],
+  "packageRules": [
+    {
+      "description": "Automerge minor, patch, pin, and digest updates",
+      "matchUpdateTypes": [
+        "minor",
+        "patch",
+        "pin",
+        "digest"
+      ],
+      "automerge": true
+    },
+    {
+      "description": "Pin digests and automerge GitHub Actions updates",
+      "matchDepTypes": [
+        "action"
+      ],
+      "matchUpdateTypes": [
+        "minor",
+        "patch",
+        "pin",
+        "digest"
+      ],
+      "pinDigests": true,
+      "automerge": true
+    }
+  ],
+  "prHourlyLimit": 2,
+  "prConcurrentLimit": 10,
+  "branchConcurrentLimit": 20,
+  "minimumReleaseAge": "3 days",
+  "platformAutomerge": true,
+  "timezone": "Asia/Tokyo",
+  "dependencyDashboard": true
+}
