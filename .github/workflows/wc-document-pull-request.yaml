@@ -2,6 +2,17 @@ name: Document Pull Request
 
 on:
   workflow_call:
+    inputs:
+      enable_textlint:
+        description: 'Run textlint via npm run lint:nofix'
+        required: false
+        type: boolean
+        default: false
+      comment_key:
+        description: 'github-comment exec key (common-error or common)'
+        required: false
+        type: string
+        default: 'common-error'
     secrets:
       CLIENT_ID:
         required: true
@@ -45,7 +56,17 @@ jobs:
       - name: Install markdownlint
         run: npm install -g markdownlint-cli2
 
+      - name: Install NPM Packages
+        if: inputs.enable_textlint
+        run: npm ci
+
+      - name: Lint Text Files
+        if: inputs.enable_textlint
+        run: github-comment exec -k ${{ inputs.comment_key }} -var env:Staging -var title:"Check Textlint" -- npm run lint:nofix
+        env:
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
+
       - name: Lint Markdown Files
-        run: github-comment exec -k common-error -var env:Staging -var title:"Check Markdown Failed" -- markdownlint-cli2 "**/*.md" --config ".markdownlint.json"
+        run: github-comment exec -k ${{ inputs.comment_key }} -var env:Staging -var title:"Check Markdown Failed" -- markdownlint-cli2 "**/*.md" "#node_modules" --config ".markdownlint.json"
         env:
           GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}

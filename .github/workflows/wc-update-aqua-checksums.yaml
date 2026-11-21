@@ -18,7 +18,7 @@ jobs:
     # Get changed files to filter jobs
     timeout-minutes: 10
     outputs:
-      test-files: ${{steps.changes.outputs.test-files}}
+      test-files: ${{ steps.changes.outputs.test-files }}
     runs-on: ubuntu-latest
     permissions: {}
     steps:
@@ -32,7 +32,6 @@ jobs:
   update-aqua-checksums:
     needs: path-filter
     if: needs.path-filter.outputs.test-files == 'true'
-
     runs-on: ubuntu-26.04
     timeout-minutes: 15
     steps:
