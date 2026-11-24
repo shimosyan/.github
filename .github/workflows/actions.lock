@@ -11,7 +11,7 @@ workflows:
         - 'actions/checkout@v7.0.1'
         - 'actions/create-github-app-token@v3.4.0'
         - 'actions/setup-node@v7.1.0'
-        - 'aquaproj/aqua-installer@v4.1.1'
+        - 'aquaproj/aqua-installer@v4.1.2'
     '.github/workflows/wc-labeler.yaml':
         - 'actions/checkout@v7.0.1'
         - 'actions/create-github-app-token@v3.4.0'
@@ -24,7 +24,7 @@ workflows:
     '.github/workflows/wc-schedule-detect-drifts.yaml':
         - 'actions/checkout@v7.0.1'
         - 'actions/create-github-app-token@v3.4.0'
-        - 'aquaproj/aqua-installer@v4.1.1'
+        - 'aquaproj/aqua-installer@v4.1.2'
         - 'aws-actions/configure-aws-credentials@v6.3.0'
         - 'suzuki-shunsuke/tfaction@v2.3.5'
     '.github/workflows/wc-sync-drift-issue-description.yaml':
@@ -37,7 +37,7 @@ workflows:
     '.github/workflows/wc-update-aqua-checksums.yaml':
         - 'actions/checkout@v7.0.1'
         - 'actions/create-github-app-token@v3.4.0'
-        - 'aquaproj/aqua-installer@v4.1.1'
+        - 'aquaproj/aqua-installer@v4.1.2'
         - 'dorny/paths-filter@v4.0.3'
         - 'suzuki-shunsuke/commit-action@v1.1.0'
 dependencies:
@@ -61,9 +61,9 @@ dependencies:
         commit: 'sha1-949feb2413d6458794dcd2491c4babbbce0c15c1'
         owner_id: 44036562
         repo_id: 189476904
-    'aquaproj/aqua-installer@v4.1.1':
-        ref: 'v4.1.1'
-        commit: 'sha1-611554c6f0137ba41c8dd15aca8bee82504ea461'
+    'aquaproj/aqua-installer@v4.1.2':
+        ref: 'v4.1.2'
+        commit: 'sha1-b8be739961814ee66b9e0d505f4d5de0d2eff047'
         owner_id: 95116411
         repo_id: 400140776
     'aws-actions/configure-aws-credentials@v6.3.0':
